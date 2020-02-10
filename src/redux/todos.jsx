@@ -2,14 +2,14 @@ const initState = {
   posts: [
     {
       id: 1,
-      name: 'Sleep',
-      completed: false,
+      name: '早起倒垃圾',
+      completed: true,
     },
   ],
   user: [],
 };
 
-const todos = (state = initState, action) => {
+export function todos(state = initState, action) {
   if (action.type === 'ADD_TODO') {
     const newPosts = state.posts.map((post) => post);
     let lastPostId = 1;
@@ -28,7 +28,29 @@ const todos = (state = initState, action) => {
     return { ...state, posts: filter };
   }
 
-  return state;
-};
+  if (action.type === 'UPDATE_TODO') {
+    return {
+      ...state,
+      posts: state.posts.map(
+        (item) => (item.id === action.id ? { ...item, completed: !item.completed } : item),
+      ),
+    };
+  }
 
-export default todos;
+  return state;
+}
+
+export const addTodo = (text) => ({
+  type: 'ADD_TODO',
+  text,
+});
+
+export const deleteTodo = (id) => ({
+  type: 'DELETE_TODO',
+  id,
+});
+
+export const updateTodo = (id) => ({
+  type: 'UPDATE_TODO',
+  id,
+});
