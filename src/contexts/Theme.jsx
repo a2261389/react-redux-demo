@@ -7,7 +7,7 @@ const themes = {
   },
   dark: {
     color: '#ffffff',
-    backgroundColor: '#222222',
+    backgroundColor: '#343A40',
   },
 };
 

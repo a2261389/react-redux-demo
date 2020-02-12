@@ -9,19 +9,9 @@ import PropTypes from 'prop-types';
 import { deleteTodo, updateTodo } from '../../redux/todos';
 import Theme from '../../contexts/Theme';
 
-const style = {
-  textColor: {
-    color: 'white',
-  },
-  listGroupItem: {
-    backgroundColor: '#343A40',
-    marginBottom: '0.5rem',
-  },
-};
-
 function TodoList() {
-  const theme = useContext(Theme);
-  console.log(`Todo get is: ${JSON.stringify(theme)}`);
+  const { nowTheme } = useContext(Theme);
+  console.log(`Todo get is: ${JSON.stringify(nowTheme)}`);
   const posts = useSelector((state) => state.todos.posts);
   const dispatch = useDispatch();
   return (
@@ -30,9 +20,9 @@ function TodoList() {
         {
           posts.length
             ? posts.map((item) => (
-              <ListGroup.Item variant="success" style={style.listGroupItem} key={item.id}>
+              <ListGroup.Item variant="success" className="mb-2 bg-dark" key={item.id}>
                 <div className="d-flex justify-content-between align-items-center">
-                  <div style={style.textColor}>
+                  <div className="text-white">
                     <Form.Check
                       type="checkbox"
                       custom
