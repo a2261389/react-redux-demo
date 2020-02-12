@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import PropTypes from 'prop-types';
 import { deleteTodo, updateTodo } from '../../redux/todos';
+import Theme from '../../contexts/Theme';
 
 const style = {
   textColor: {
@@ -19,6 +20,8 @@ const style = {
 };
 
 function TodoList() {
+  const theme = useContext(Theme);
+  console.log(`Todo get is: ${JSON.stringify(theme)}`);
   const posts = useSelector((state) => state.todos.posts);
   const dispatch = useDispatch();
   return (
