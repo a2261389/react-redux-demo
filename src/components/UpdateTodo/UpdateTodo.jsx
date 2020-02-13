@@ -6,11 +6,12 @@ import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-tw';
-import { addTodo } from '../../redux/todos';
+import PropTypes from 'prop-types';
+import { updateTodo } from '../../redux/todos';
 
 dayjs.locale('zh-tw');
 
-const AddTodo = () => {
+const UpdateTodo = ({ editIndex, callback }) => {
   const [input, setInput] = useState('');
   const [inputStatus, setInputStatus] = useState({
     isValid: false,
@@ -24,9 +25,10 @@ const AddTodo = () => {
       setInputStatus({ isValid: false, isInvalid: true });
       return;
     }
-    dispatch(addTodo(input, dayjs().format('YYYY-MM-DD HH:mm:ss')));
+    dispatch(updateTodo(editIndex, input));
     setInput('');
     setInputStatus({ isValid: false, isInvalid: false });
+    callback();
   };
 
   const handleInput = (event) => {
@@ -47,15 +49,21 @@ const AddTodo = () => {
             onChange={handleInput}
           />
           <InputGroup.Append>
-            <Button variant="outline-secondary" type="submit">Add</Button>
+            <Button variant="outline-secondary" type="submit">儲存</Button>
           </InputGroup.Append>
           <Form.Control.Feedback type="invalid">
             <h6>請輸入文字</h6>
           </Form.Control.Feedback>
         </InputGroup>
       </Form.Group>
+      <Button variant="outline-secondary" type="button" onClick={() => { callback(); }}>取消</Button>
     </Form>
   );
 };
 
-export default AddTodo;
+UpdateTodo.propTypes = {
+  editIndex: PropTypes.number.isRequired,
+  callback: PropTypes.func.isRequired,
+};
+
+export default UpdateTodo;

@@ -7,6 +7,8 @@ import {
 } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import TodoList from './components/TodoList';
 import AddTodo from './components/AddTodo';
 import Theme from './contexts/Theme';
@@ -39,10 +41,18 @@ function MyRoute() {
       </Navbar>
       <Switch>
         <Route path="/add">
-          <AddTodo />
+          <Row className="justify-content-center mt-5">
+            <Col md={{ span: 5 }}>
+              <AddTodo />
+            </Col>
+          </Row>
         </Route>
         <Route path="/post">
-          <TodoList />
+          <Row className="justify-content-center mt-5">
+            <Col md={{ span: 5 }}>
+              <TodoList />
+            </Col>
+          </Row>
         </Route>
       </Switch>
     </Router>
