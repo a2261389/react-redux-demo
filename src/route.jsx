@@ -32,7 +32,7 @@ function MyRoute() {
   return (
     <Router>
       <Navbar bg="dark" variant="dark" expand="lg">
-        <Navbar.Brand style={style.noSelect}>Empty</Navbar.Brand>
+        <Navbar.Brand style={style.noSelect}>Todo List</Navbar.Brand>
         <Nav>
           <Nav.Item><NavLink style={style.default} activeStyle={style.active} to="/add">Add Todo</NavLink></Nav.Item>
           <Nav.Item><NavLink style={style.default} activeStyle={style.active} to="/post">Todos</NavLink></Nav.Item>
