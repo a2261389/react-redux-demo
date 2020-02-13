@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import App from './components/App/index';
 import rootReducer from './redux/index';
 import './styles/index.scss';
+import * as serviceWorker from './serviceWorker';
 
 const store = createStore(rootReducer);
 
@@ -14,3 +15,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root'),
 );
+
+serviceWorker.register();
