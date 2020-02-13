@@ -1,6 +1,6 @@
 const initState = (() => {
   const posts = localStorage.getItem('posts');
-  return JSON.parse(posts);
+  return posts === null ? { posts: [] } : JSON.parse(posts);
 })();
 
 export function todos(state = initState, action) {
