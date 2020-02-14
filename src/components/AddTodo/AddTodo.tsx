@@ -10,15 +10,20 @@ import { addTodo } from '../../redux/todos';
 
 dayjs.locale('zh-tw');
 
+interface IInputStatus {
+  isValid: boolean,
+  isInvalid: boolean,
+}
+
 const AddTodo = () => {
-  const [input, setInput] = useState('');
-  const [inputStatus, setInputStatus] = useState({
+  const [input, setInput] = useState<string>('');
+  const [inputStatus, setInputStatus] = useState<IInputStatus>({
     isValid: false,
     isInvalid: false,
   });
   const dispatch = useDispatch();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!input) {
       setInputStatus({ isValid: false, isInvalid: true });
@@ -29,9 +34,9 @@ const AddTodo = () => {
     setInputStatus({ isValid: false, isInvalid: false });
   };
 
-  const handleInput = (event) => {
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
-    const isValid = event.target.value !== '';
+    const isValid: boolean = event.target.value !== '';
     setInputStatus({ isValid, isInvalid: !isValid });
   };
   return (
