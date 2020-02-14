@@ -11,15 +11,24 @@ import { updateTodo } from '../../redux/todos';
 
 dayjs.locale('zh-tw');
 
-const UpdateTodo = ({ editIndex, callback }) => {
-  const [input, setInput] = useState('');
-  const [inputStatus, setInputStatus] = useState({
+interface InputStatus {
+  isValid: boolean;
+  isInvalid: boolean;
+}
+
+interface EditCallback { (): void }
+
+const UpdateTodo = (
+  { editIndex, callback }: { editIndex: number; callback: EditCallback },
+): JSX.Element => {
+  const [input, setInput] = useState<string>('');
+  const [inputStatus, setInputStatus] = useState<InputStatus>({
     isValid: false,
     isInvalid: false,
   });
   const dispatch = useDispatch();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     if (!input) {
       setInputStatus({ isValid: false, isInvalid: true });
@@ -31,7 +40,7 @@ const UpdateTodo = ({ editIndex, callback }) => {
     callback();
   };
 
-  const handleInput = (event) => {
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setInput(event.target.value);
     const isValid = event.target.value !== '';
     setInputStatus({ isValid, isInvalid: !isValid });
@@ -56,7 +65,7 @@ const UpdateTodo = ({ editIndex, callback }) => {
           </Form.Control.Feedback>
         </InputGroup>
       </Form.Group>
-      <Button variant="outline-secondary" type="button" onClick={() => { callback(); }}>取消</Button>
+      <Button variant="outline-secondary" type="button" onClick={(): void => { callback(); }}>取消</Button>
     </Form>
   );
 };

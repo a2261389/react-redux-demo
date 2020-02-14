@@ -5,9 +5,14 @@ import Form from 'react-bootstrap/Form';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FaTimes, FaRegClock, FaEdit } from 'react-icons/fa';
-import { deleteTodo, updateTodoComplete } from '../../redux/todos';
+import { deleteTodo, updateTodoComplete, RootState } from '../../redux/todos';
 import Theme from '../../contexts/Theme';
 import UpdateTodo from '../UpdateTodo/UpdateTodo';
+
+interface EditStatus {
+  isEditing: boolean;
+  editId: number | null;
+}
 
 const DefaultButton = styled.button`
   background: none;
@@ -19,28 +24,28 @@ const DefaultButton = styled.button`
   outline: inherit;
 `;
 
-function TodoList() {
-  const { nowTheme } = useContext(Theme);
-  const [editStatus, setEditStatus] = useState({
+function TodoList(): JSX.Element {
+  const { theme } = useContext(Theme);
+  const [editStatus, setEditStatus] = useState<EditStatus>({
     isEditing: false,
     editId: null,
   });
-  const posts = useSelector((state) => state.todos.posts);
+  const posts = useSelector((state: RootState) => state.todos.posts);
   const dispatch = useDispatch();
-  const handleEdit = (index) => {
+  const handleEdit = (index: number): void => {
     setEditStatus({ editId: index, isEditing: true });
   };
   return (
     <>
       {
         posts.length
-          ? posts.map((item, index) => (
-            <ListGroup.Item variant="success" style={nowTheme} key={item.id} className="mb-2">
+          ? posts.map((item, index: number) => (
+            <ListGroup.Item variant="success" style={theme} key={item.id} className="mb-2">
               {
                 (editStatus.editId === index && editStatus.isEditing) ? (
                   <UpdateTodo
                     editIndex={index}
-                    callback={() => {
+                    callback={(): void => {
                       setEditStatus({ editId: index, isEditing: false });
                     }}
                   />
@@ -55,15 +60,15 @@ function TodoList() {
                           inline
                           id={`todo-checkbox-${item.id}`}
                           checked={item.completed}
-                          onChange={() => { dispatch(updateTodoComplete(item.id)); }}
+                          onChange={(): void => { dispatch(updateTodoComplete(item.id)); }}
                         />
                       </div>
-                      <h3><FaTimes onClick={() => { dispatch(deleteTodo(item.id)); }} /></h3>
+                      <h3><FaTimes onClick={(): void => { dispatch(deleteTodo(item.id)); }} /></h3>
                     </div>
-                    <hr style={nowTheme} />
+                    <hr style={theme} />
                     <div className="d-flex justify-content-between">
                       <div>
-                        <DefaultButton type="button" onClick={() => { handleEdit(index); }}>
+                        <DefaultButton type="button" onClick={(): void => { handleEdit(index); }}>
                           <h6>
                             <FaEdit />
                             編輯
@@ -73,7 +78,7 @@ function TodoList() {
                       <div className="text-right">
                         <FaRegClock />
                         <small className="ml-1">
-                          {item.created_at}
+                          {item.createdAt}
                         </small>
                       </div>
                     </div>
@@ -91,7 +96,7 @@ function TodoList() {
   );
 }
 
-function CheckBoxLabel({ completed, text }) {
+function CheckBoxLabel({ completed, text }: { completed: boolean; text: string }): JSX.Element {
   return (
     <span style={{ textDecoration: (completed ? 'line-through' : '') }}>{text}</span>
   );

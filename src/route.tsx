@@ -13,7 +13,11 @@ import TodoList from './components/TodoList';
 import AddTodo from './components/AddTodo';
 import Theme from './contexts/Theme';
 
-const style = {
+interface Style {
+  [propName: string]: object;
+}
+
+const style: Style = {
   default: {
     textDecoration: 'none',
     color: 'grey',
@@ -27,8 +31,8 @@ const style = {
   },
 };
 
-function MyRoute() {
-  const { nowTheme, changeTheme } = React.useContext(Theme);
+function MyRoute(): JSX.Element {
+  const { theme, changeTheme } = React.useContext(Theme);
   return (
     <Router>
       <Navbar bg="dark" variant="dark" expand="lg">
@@ -36,7 +40,7 @@ function MyRoute() {
         <Nav>
           <Nav.Item><NavLink style={style.default} activeStyle={style.active} to="/add">Add Todo</NavLink></Nav.Item>
           <Nav.Item><NavLink style={style.default} activeStyle={style.active} to="/post">Todos</NavLink></Nav.Item>
-          <Nav.Item style={nowTheme} onClick={() => { changeTheme(nowTheme); }}>Color</Nav.Item>
+          <Nav.Item style={theme} onClick={(): void => { changeTheme(); }}>Color</Nav.Item>
         </Nav>
       </Navbar>
       <Switch>

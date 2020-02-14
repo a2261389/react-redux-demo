@@ -1,6 +1,18 @@
 import { createContext } from 'react';
 
-const themes = {
+export interface Theme {
+  color?: string;
+  backgroundColor?: string;
+  borderColor?: string;
+  borderTop?: string;
+}
+
+export type Themes = {
+  dark: Theme;
+  light: Theme;
+};
+
+export const themes: Themes = {
   light: {
     color: '#000000',
     backgroundColor: '#eeeeee',
@@ -14,6 +26,10 @@ const themes = {
   },
 };
 
-const ThemeContext = createContext(themes);
+const change = (): void => {
+  //
+};
+export type ThemeContextProps = { theme: Theme; changeTheme: () => void };
+const ThemeContext = createContext<ThemeContextProps>({ theme: themes.dark, changeTheme: change });
 
 export default ThemeContext;
