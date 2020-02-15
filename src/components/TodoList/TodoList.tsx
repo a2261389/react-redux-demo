@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FaTimes, FaRegClock, FaEdit } from 'react-icons/fa';
 import { deleteTodo, updateTodoComplete, RootState } from '../../redux/todos';
@@ -12,6 +11,10 @@ import UpdateTodo from '../UpdateTodo/UpdateTodo';
 interface EditStatus {
   isEditing: boolean;
   editId: number | null;
+}
+
+interface TodoListFormatter {
+  (): JSX.Element;
 }
 
 const DefaultButton = styled.button`
@@ -24,7 +27,7 @@ const DefaultButton = styled.button`
   outline: inherit;
 `;
 
-function TodoList(): JSX.Element {
+const TodoList: TodoListFormatter = (): JSX.Element => {
   const { theme } = useContext(Theme);
   const [editStatus, setEditStatus] = useState<EditStatus>({
     isEditing: false,
@@ -94,17 +97,10 @@ function TodoList(): JSX.Element {
       }
     </>
   );
-}
-
-function CheckBoxLabel({ completed, text }: { completed: boolean; text: string }): JSX.Element {
-  return (
-    <span style={{ textDecoration: (completed ? 'line-through' : '') }}>{text}</span>
-  );
-}
-
-CheckBoxLabel.propTypes = {
-  completed: PropTypes.bool.isRequired,
-  text: PropTypes.string.isRequired,
 };
+
+const CheckBoxLabel = ({ completed, text }: { completed: boolean; text: string }): JSX.Element => (
+  <span style={{ textDecoration: (completed ? 'line-through' : '') }}>{text}</span>
+);
 
 export default TodoList;

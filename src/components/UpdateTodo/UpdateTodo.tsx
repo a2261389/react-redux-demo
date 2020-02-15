@@ -6,7 +6,6 @@ import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-tw';
-import PropTypes from 'prop-types';
 import { updateTodo } from '../../redux/todos';
 
 dayjs.locale('zh-tw');
@@ -16,7 +15,9 @@ interface InputStatus {
   isInvalid: boolean;
 }
 
-interface EditCallback { (): void }
+interface EditCallback {
+  (): void;
+}
 
 const UpdateTodo = (
   { editIndex, callback }: { editIndex: number; callback: EditCallback },
@@ -68,11 +69,6 @@ const UpdateTodo = (
       <Button variant="outline-secondary" type="button" onClick={(): void => { callback(); }}>取消</Button>
     </Form>
   );
-};
-
-UpdateTodo.propTypes = {
-  editIndex: PropTypes.number.isRequired,
-  callback: PropTypes.func.isRequired,
 };
 
 export default UpdateTodo;

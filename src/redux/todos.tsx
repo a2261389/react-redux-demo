@@ -101,23 +101,23 @@ export function todos(state = initState, action: TodoAction): PostState {
   return state;
 }
 
-export const addTodo = (text: string, time: string): object => ({
+export const addTodo = (text: string, time: string): AddTodoAction => ({
   type: ADD_TODO,
   createdAt: time,
   text,
 });
 
-export const deleteTodo = (id: number): object => ({
+export const deleteTodo = (id: number): DeleteTodoAction => ({
   type: DELETE_TODO,
   id,
 });
 
-export const updateTodoComplete = (id: number): object => ({
+export const updateTodoComplete = (id: number): UpdateTodoCompleteAction => ({
   type: UPDATE_TODO_COMPLETE,
   id,
 });
 
-export const updateTodo = (index: number, text: string): object => ({
+export const updateTodo = (index: number, text: string): UpdateTodoAction => ({
   type: UPDATE_TODO,
   index,
   text,

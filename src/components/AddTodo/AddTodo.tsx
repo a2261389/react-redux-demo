@@ -15,7 +15,11 @@ interface InputStatus {
   isInvalid: boolean;
 }
 
-const AddTodo = (): JSX.Element => {
+interface AddTodoComponent {
+  (): JSX.Element;
+}
+
+const AddTodo: AddTodoComponent = (): JSX.Element => {
   const [input, setInput] = useState<string>('');
   const [inputStatus, setInputStatus] = useState<InputStatus>({
     isValid: false,

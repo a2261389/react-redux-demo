@@ -5,7 +5,11 @@ import Col from 'react-bootstrap/Col';
 import MyRouter from '../../route';
 import Theme, { themes } from '../../contexts/Theme';
 
-function App(): JSX.Element {
+interface AppComponent {
+  (): JSX.Element;
+}
+
+const App: AppComponent = (): JSX.Element => {
   const { theme } = useContext(Theme);
   const [nowTheme, setNowTheme] = useState(theme);
 
@@ -28,6 +32,6 @@ function App(): JSX.Element {
       </Container>
     </Theme.Provider>
   );
-}
+};
 
 export default App;
